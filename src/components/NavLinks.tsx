@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Users } from "lucide-react";
+import { LayoutDashboard, Users, BarChart3 } from "lucide-react";
 import { t } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locales";
 
@@ -12,6 +12,7 @@ export default function NavLinks({ locale }: { locale: Locale }) {
   const items = [
     { href: "/admin", label: t(locale, "navDashboard"), icon: LayoutDashboard, exact: true },
     { href: "/admin/members", label: t(locale, "navMembers"), icon: Users, exact: false },
+    { href: "/admin/analytics", label: t(locale, "navAnalytics"), icon: BarChart3, exact: false },
   ];
 
   return (

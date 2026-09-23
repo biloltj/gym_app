@@ -81,6 +81,13 @@ const en = {
   csvHeaderPaymentStatus: "Payment status",
   csvHeaderMonthsOwed: "Months owed",
   csvHeaderNextDue: "Next due",
+  navAnalytics: "Analytics",
+  statCollectedThisMonth: "Collected this month",
+  statExpectedThisMonth: "Expected this month",
+  statCollectionRate: "Collection rate",
+  chartTitleRevenue: "Revenue — last 6 months",
+  legendCollected: "Collected",
+  legendExpected: "Expected",
 };
 
 const ru: typeof en = {
@@ -164,6 +171,13 @@ const ru: typeof en = {
   csvHeaderPaymentStatus: "Статус оплаты",
   csvHeaderMonthsOwed: "Долг (мес.)",
   csvHeaderNextDue: "Следующая оплата",
+  navAnalytics: "Аналитика",
+  statCollectedThisMonth: "Собрано в этом месяце",
+  statExpectedThisMonth: "Ожидается в этом месяце",
+  statCollectionRate: "Процент сбора",
+  chartTitleRevenue: "Доход — последние 6 месяцев",
+  legendCollected: "Собрано",
+  legendExpected: "Ожидается",
 };
 
 const tg: typeof en = {
@@ -247,6 +261,13 @@ const tg: typeof en = {
   csvHeaderPaymentStatus: "Ҳолати пардохт",
   csvHeaderMonthsOwed: "Қарз (моҳ)",
   csvHeaderNextDue: "Пардохти навбатӣ",
+  navAnalytics: "Таҳлил",
+  statCollectedThisMonth: "Дар ин моҳ ситонидашуд",
+  statExpectedThisMonth: "Дар ин моҳ интизор",
+  statCollectionRate: "Фоизи ситонидашуда",
+  chartTitleRevenue: "Даромад — 6 моҳи охир",
+  legendCollected: "Ситонидашуд",
+  legendExpected: "Интизоршуда",
 };
 
 export const dictionaries = { en, ru, tg } satisfies Record<Locale, typeof en>;
