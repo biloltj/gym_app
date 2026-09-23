@@ -72,6 +72,15 @@ const en = {
   pickMonth: "Pick a month",
   pickDate: "Pick a date",
   amountPositive: "Amount must be a positive number",
+  whatsappBtn: "WhatsApp",
+  exportCsvBtn: "Export CSV",
+  waReminderOverdue:
+    "Hi {name}, this is a reminder from {appName} that your membership payment is overdue ({count} mo.). Please pay when you can. Thank you!",
+  waReminderDueSoon:
+    "Hi {name}, this is a reminder from {appName} that your membership payment is due on {date}. Thank you!",
+  csvHeaderPaymentStatus: "Payment status",
+  csvHeaderMonthsOwed: "Months owed",
+  csvHeaderNextDue: "Next due",
 };
 
 const ru: typeof en = {
@@ -146,6 +155,15 @@ const ru: typeof en = {
   pickMonth: "Выберите месяц",
   pickDate: "Выберите дату",
   amountPositive: "Сумма должна быть положительным числом",
+  whatsappBtn: "WhatsApp",
+  exportCsvBtn: "Экспорт CSV",
+  waReminderOverdue:
+    "Здравствуйте, {name}! Напоминаем от {appName}, что оплата за абонемент просрочена ({count} мес.). Пожалуйста, оплатите при возможности. Спасибо!",
+  waReminderDueSoon:
+    "Здравствуйте, {name}! Напоминаем от {appName}, что оплата за абонемент должна быть внесена до {date}. Спасибо!",
+  csvHeaderPaymentStatus: "Статус оплаты",
+  csvHeaderMonthsOwed: "Долг (мес.)",
+  csvHeaderNextDue: "Следующая оплата",
 };
 
 const tg: typeof en = {
@@ -220,6 +238,15 @@ const tg: typeof en = {
   pickMonth: "Моҳро интихоб кунед",
   pickDate: "Санаро интихоб кунед",
   amountPositive: "Маблағ бояд рақами мусбат бошад",
+  whatsappBtn: "WhatsApp",
+  exportCsvBtn: "Содироти CSV",
+  waReminderOverdue:
+    "Салом, {name}! Ин ёдоварӣ аз {appName} аст, ки пардохти шумо қарздор аст ({count} моҳ). Лутфан ҳарчи зудтар пардохт кунед. Ташаккур!",
+  waReminderDueSoon:
+    "Салом, {name}! Ин ёдоварӣ аз {appName} аст, ки мӯҳлати пардохти шумо то {date} аст. Ташаккур!",
+  csvHeaderPaymentStatus: "Ҳолати пардохт",
+  csvHeaderMonthsOwed: "Қарз (моҳ)",
+  csvHeaderNextDue: "Пардохти навбатӣ",
 };
 
 export const dictionaries = { en, ru, tg } satisfies Record<Locale, typeof en>;

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Search, Plus, ChevronRight } from "lucide-react";
+import { Search, Plus, ChevronRight, Download } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getMemberPaymentStatus } from "@/lib/payment-status";
 import StatusBadge from "@/components/StatusBadge";
@@ -25,13 +25,22 @@ export default async function MembersPage({
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-3">
         <h1 className="text-lg font-semibold">{t(locale, "pageTitleMembers", { count: members.length })}</h1>
-        <Link
-          href="/admin/members/new"
-          className="flex items-center gap-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium px-4 py-2 transition shadow-lg shadow-indigo-950/30"
-        >
-          <Plus className="h-4 w-4" />
-          {t(locale, "addMember")}
-        </Link>
+        <div className="flex items-center gap-2">
+          <a
+            href="/admin/members/export"
+            className="flex items-center gap-1.5 rounded-lg border border-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-700 text-sm font-medium px-3 py-2 transition"
+          >
+            <Download className="h-4 w-4" />
+            <span className="hidden sm:inline">{t(locale, "exportCsvBtn")}</span>
+          </a>
+          <Link
+            href="/admin/members/new"
+            className="flex items-center gap-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium px-4 py-2 transition shadow-lg shadow-indigo-950/30"
+          >
+            <Plus className="h-4 w-4" />
+            {t(locale, "addMember")}
+          </Link>
+        </div>
       </div>
 
       <form className="relative">

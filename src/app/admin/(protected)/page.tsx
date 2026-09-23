@@ -4,11 +4,13 @@ import { prisma } from "@/lib/prisma";
 import { getMemberPaymentStatus, type PaymentStatus } from "@/lib/payment-status";
 import StatusBadge from "@/components/StatusBadge";
 import Avatar from "@/components/Avatar";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { t } from "@/lib/i18n/dictionaries";
 
 export default async function DashboardPage() {
   const locale = await getLocale();
+  const appName = t(locale, "appName");
 
   const members = await prisma.member.findMany({
     where: { status: "active" },
@@ -81,21 +83,31 @@ export default async function DashboardPage() {
         ) : (
           <div className="space-y-2">
             {overdue.map(({ member, status, monthsOwed }) => (
-              <Link
+              <div
                 key={member.id}
-                href={`/admin/members/${member.id}`}
-                className="group flex items-center gap-3 rounded-xl border border-neutral-800 bg-neutral-900/60 px-4 py-3 hover:border-neutral-700 hover:bg-neutral-900 transition"
+                className="flex items-center gap-3 rounded-xl border border-neutral-800 bg-neutral-900/60 px-4 py-3 hover:border-neutral-700 hover:bg-neutral-900 transition"
               >
-                <Avatar name={member.fullName} />
-                <div className="flex-1 min-w-0">
-                  <div className="font-medium truncate">{member.fullName}</div>
-                  <div className="text-xs text-neutral-500">
-                    {t(locale, "monthsOwedShort", { count: monthsOwed })} &middot; {member.phone}
+                <Link href={`/admin/members/${member.id}`} className="group flex flex-1 min-w-0 items-center gap-3">
+                  <Avatar name={member.fullName} />
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium truncate">{member.fullName}</div>
+                    <div className="text-xs text-neutral-500">
+                      {t(locale, "monthsOwedShort", { count: monthsOwed })} &middot; {member.phone}
+                    </div>
                   </div>
-                </div>
-                <StatusBadge status={status} locale={locale} />
-                <ChevronRight className="h-4 w-4 text-neutral-600 group-hover:text-neutral-400 transition hidden sm:block" />
-              </Link>
+                  <StatusBadge status={status} locale={locale} />
+                  <ChevronRight className="h-4 w-4 text-neutral-600 group-hover:text-neutral-400 transition hidden sm:block" />
+                </Link>
+                <WhatsAppButton
+                  phone={member.phone}
+                  label={t(locale, "whatsappBtn")}
+                  message={t(locale, "waReminderOverdue", {
+                    name: member.fullName,
+                    appName,
+                    count: monthsOwed,
+                  })}
+                />
+              </div>
             ))}
           </div>
         )}
@@ -110,21 +122,31 @@ export default async function DashboardPage() {
         ) : (
           <div className="space-y-2">
             {dueSoon.map(({ member, status, dueDate }) => (
-              <Link
+              <div
                 key={member.id}
-                href={`/admin/members/${member.id}`}
-                className="group flex items-center gap-3 rounded-xl border border-neutral-800 bg-neutral-900/60 px-4 py-3 hover:border-neutral-700 hover:bg-neutral-900 transition"
+                className="flex items-center gap-3 rounded-xl border border-neutral-800 bg-neutral-900/60 px-4 py-3 hover:border-neutral-700 hover:bg-neutral-900 transition"
               >
-                <Avatar name={member.fullName} />
-                <div className="flex-1 min-w-0">
-                  <div className="font-medium truncate">{member.fullName}</div>
-                  <div className="text-xs text-neutral-500">
-                    {t(locale, "dueLabel", { date: dueDate.toLocaleDateString() })} &middot; {member.phone}
+                <Link href={`/admin/members/${member.id}`} className="group flex flex-1 min-w-0 items-center gap-3">
+                  <Avatar name={member.fullName} />
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium truncate">{member.fullName}</div>
+                    <div className="text-xs text-neutral-500">
+                      {t(locale, "dueLabel", { date: dueDate.toLocaleDateString() })} &middot; {member.phone}
+                    </div>
                   </div>
-                </div>
-                <StatusBadge status={status} locale={locale} />
-                <ChevronRight className="h-4 w-4 text-neutral-600 group-hover:text-neutral-400 transition hidden sm:block" />
-              </Link>
+                  <StatusBadge status={status} locale={locale} />
+                  <ChevronRight className="h-4 w-4 text-neutral-600 group-hover:text-neutral-400 transition hidden sm:block" />
+                </Link>
+                <WhatsAppButton
+                  phone={member.phone}
+                  label={t(locale, "whatsappBtn")}
+                  message={t(locale, "waReminderDueSoon", {
+                    name: member.fullName,
+                    appName,
+                    date: dueDate.toLocaleDateString(),
+                  })}
+                />
+              </div>
             ))}
           </div>
         )}

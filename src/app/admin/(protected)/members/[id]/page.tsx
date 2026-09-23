@@ -9,6 +9,7 @@ import DeleteMemberButton from "@/components/DeleteMemberButton";
 import DeletePaymentButton from "@/components/DeletePaymentButton";
 import StatusBadge from "@/components/StatusBadge";
 import Avatar from "@/components/Avatar";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { t } from "@/lib/i18n/dictionaries";
 
@@ -31,6 +32,15 @@ export default async function MemberDetailPage({
     member.joinDate,
     member.payments.map((p) => p.forMonth)
   );
+  const appName = t(locale, "appName");
+  const reminderMessage =
+    status === "overdue"
+      ? t(locale, "waReminderOverdue", { name: member.fullName, appName, count: monthsOwed })
+      : t(locale, "waReminderDueSoon", {
+          name: member.fullName,
+          appName,
+          date: dueDate.toLocaleDateString(),
+        });
 
   return (
     <div className="space-y-6">
@@ -49,7 +59,16 @@ export default async function MemberDetailPage({
             </div>
           </div>
         </div>
-        <DeleteMemberButton id={member.id} locale={locale} />
+        <div className="flex items-center gap-2">
+          {(status === "overdue" || status === "due_soon") && (
+            <WhatsAppButton
+              phone={member.phone}
+              label={t(locale, "whatsappBtn")}
+              message={reminderMessage}
+            />
+          )}
+          <DeleteMemberButton id={member.id} locale={locale} />
+        </div>
       </div>
 
       <section className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-5 space-y-4">
