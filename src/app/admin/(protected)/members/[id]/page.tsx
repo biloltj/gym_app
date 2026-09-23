@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { CreditCard, History, UserPen } from "lucide-react";
 import { prisma } from "@/lib/prisma";
-import { getMemberPaymentStatus } from "@/lib/payment-status";
+import { getMemberPaymentStatus, getNextUnpaidMonth } from "@/lib/payment-status";
 import { updateMemberAction } from "@/app/actions/members";
 import MemberForm from "@/components/MemberForm";
 import AddPaymentForm from "@/components/AddPaymentForm";
@@ -28,10 +28,9 @@ export default async function MemberDetailPage({
 
   if (!member) notFound();
 
-  const { status, dueDate, monthsOwed } = getMemberPaymentStatus(
-    member.joinDate,
-    member.payments.map((p) => p.forMonth)
-  );
+  const paidMonths = member.payments.map((p) => p.forMonth);
+  const { status, dueDate, monthsOwed } = getMemberPaymentStatus(member.joinDate, paidMonths);
+  const nextUnpaidMonth = getNextUnpaidMonth(member.joinDate, paidMonths);
   const appName = t(locale, "appName");
   const reminderMessage =
     status === "overdue"
@@ -76,7 +75,12 @@ export default async function MemberDetailPage({
           <CreditCard className="h-4 w-4 text-emerald-400" />
           {t(locale, "recordPaymentTitle")}
         </h2>
-        <AddPaymentForm memberId={member.id} defaultAmount={member.monthlyFee} locale={locale} />
+        <AddPaymentForm
+          memberId={member.id}
+          defaultAmount={member.monthlyFee}
+          defaultForMonth={nextUnpaidMonth}
+          locale={locale}
+        />
       </section>
 
       <section className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-5 space-y-4">

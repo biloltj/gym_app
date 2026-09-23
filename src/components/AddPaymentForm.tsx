@@ -12,15 +12,16 @@ const labelClass = "block text-sm text-neutral-300 mb-1.5";
 export default function AddPaymentForm({
   memberId,
   defaultAmount,
+  defaultForMonth,
   locale,
 }: {
   memberId: string;
   defaultAmount: number;
+  defaultForMonth: string;
   locale: Locale;
 }) {
   const [state, formAction, pending] = useActionState(addPaymentAction, {});
   const today = new Date().toISOString().slice(0, 10);
-  const currentMonth = today.slice(0, 7);
 
   return (
     <form action={formAction} className="space-y-3">
@@ -45,7 +46,7 @@ export default function AddPaymentForm({
             name="forMonth"
             type="month"
             required
-            defaultValue={currentMonth}
+            defaultValue={defaultForMonth}
             className={inputClass}
           />
         </div>

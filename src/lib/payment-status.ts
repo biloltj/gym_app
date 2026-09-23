@@ -96,3 +96,26 @@ export function getMemberPaymentStatus(
 export function currentMonthKey(today: Date = new Date()): string {
   return ymKey(today);
 }
+
+/**
+ * Formats a computed due date (built from local Y/M/D, unlike joinDate/paidDate
+ * which are UTC-midnight) using its local calendar date — toISOString() would
+ * shift it a day in either direction depending on the server's timezone offset.
+ */
+export function formatLocalDate(date: Date): string {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+/** Earliest month the member owes a payment for, so payment forms don't default to the wrong month. */
+export function getNextUnpaidMonth(
+  joinDate: Date,
+  paidMonths: string[],
+  today: Date = new Date()
+): string {
+  const paidSet = new Set(paidMonths);
+  const expectedMonths = monthsBetweenInclusive(joinDate, today);
+  return expectedMonths.find((ym) => !paidSet.has(ym)) ?? ymKey(today);
+}

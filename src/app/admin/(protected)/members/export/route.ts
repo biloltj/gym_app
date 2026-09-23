@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getMemberPaymentStatus } from "@/lib/payment-status";
+import { getMemberPaymentStatus, formatLocalDate } from "@/lib/payment-status";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { t, type DictionaryKey } from "@/lib/i18n/dictionaries";
 
@@ -53,7 +53,7 @@ export async function GET() {
       member.status === "active" ? t(locale, "statusActive") : t(locale, "statusInactive"),
       t(locale, STATUS_LABEL_KEYS[status]),
       monthsOwed,
-      dueDate.toISOString().slice(0, 10),
+      formatLocalDate(dueDate),
     ];
   });
 
