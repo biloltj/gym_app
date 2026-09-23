@@ -26,8 +26,8 @@ type Props = {
 };
 
 const inputClass =
-  "w-full rounded-lg bg-neutral-900 border border-neutral-800 px-3 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500";
-const labelClass = "block text-sm text-neutral-300 mb-1";
+  "w-full rounded-lg bg-neutral-950/60 border border-neutral-800 px-3 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition";
+const labelClass = "block text-sm text-neutral-300 mb-1.5";
 
 export default function MemberForm({ action, submitLabel, locale, defaultValues = {} }: Props) {
   const [state, formAction, pending] = useActionState(action, {});

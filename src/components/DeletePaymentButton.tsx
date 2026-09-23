@@ -1,5 +1,6 @@
 "use client";
 
+import { X } from "lucide-react";
 import { deletePaymentAction } from "@/app/actions/payments";
 import { t } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locales";
@@ -22,8 +23,13 @@ export default function DeletePaymentButton({
         }
       }}
     >
-      <button type="submit" className="text-xs text-red-400 hover:text-red-300 transition">
-        {t(locale, "deleteBtn")}
+      <button
+        type="submit"
+        className="flex items-center gap-1 rounded-md p-1.5 text-neutral-500 hover:text-red-400 hover:bg-red-950/30 transition"
+        aria-label={t(locale, "deleteBtn")}
+        title={t(locale, "deleteBtn")}
+      >
+        <X className="h-3.5 w-3.5" />
       </button>
     </form>
   );

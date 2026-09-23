@@ -1,7 +1,9 @@
 import Link from "next/link";
+import { Users, CheckCircle2, Clock, AlertTriangle, ChevronRight } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getMemberPaymentStatus, type PaymentStatus } from "@/lib/payment-status";
 import StatusBadge from "@/components/StatusBadge";
+import Avatar from "@/components/Avatar";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { t } from "@/lib/i18n/dictionaries";
 
@@ -27,19 +29,45 @@ export default async function DashboardPage() {
   const paidCount = byStatus("paid").length;
 
   const stats = [
-    { label: t(locale, "statActiveMembers"), value: members.length },
-    { label: t(locale, "statPaidThisMonth"), value: paidCount },
-    { label: t(locale, "statDueSoon"), value: dueSoon.length },
-    { label: t(locale, "statOverdue"), value: overdue.length },
+    {
+      label: t(locale, "statActiveMembers"),
+      value: members.length,
+      icon: Users,
+      accent: "text-indigo-400 bg-indigo-500/10",
+    },
+    {
+      label: t(locale, "statPaidThisMonth"),
+      value: paidCount,
+      icon: CheckCircle2,
+      accent: "text-emerald-400 bg-emerald-500/10",
+    },
+    {
+      label: t(locale, "statDueSoon"),
+      value: dueSoon.length,
+      icon: Clock,
+      accent: "text-amber-400 bg-amber-500/10",
+    },
+    {
+      label: t(locale, "statOverdue"),
+      value: overdue.length,
+      icon: AlertTriangle,
+      accent: "text-red-400 bg-red-500/10",
+    },
   ];
 
   return (
     <div className="space-y-8">
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {stats.map((s) => (
-          <div key={s.label} className="rounded-xl border border-neutral-800 bg-neutral-900 p-4">
-            <div className="text-2xl font-semibold">{s.value}</div>
-            <div className="text-xs text-neutral-400 mt-1">{s.label}</div>
+          <div
+            key={s.label}
+            className="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-4"
+          >
+            <div className={`inline-flex items-center justify-center rounded-lg p-1.5 mb-3 ${s.accent}`}>
+              <s.icon className="h-4 w-4" />
+            </div>
+            <div className="text-2xl font-semibold tabular-nums">{s.value}</div>
+            <div className="text-xs text-neutral-400 mt-0.5">{s.label}</div>
           </div>
         ))}
       </div>
@@ -56,15 +84,17 @@ export default async function DashboardPage() {
               <Link
                 key={member.id}
                 href={`/admin/members/${member.id}`}
-                className="flex items-center justify-between rounded-lg border border-neutral-800 bg-neutral-900 px-4 py-3 hover:border-neutral-700 transition"
+                className="group flex items-center gap-3 rounded-xl border border-neutral-800 bg-neutral-900/60 px-4 py-3 hover:border-neutral-700 hover:bg-neutral-900 transition"
               >
-                <div>
-                  <div className="font-medium">{member.fullName}</div>
+                <Avatar name={member.fullName} />
+                <div className="flex-1 min-w-0">
+                  <div className="font-medium truncate">{member.fullName}</div>
                   <div className="text-xs text-neutral-500">
                     {t(locale, "monthsOwedShort", { count: monthsOwed })} &middot; {member.phone}
                   </div>
                 </div>
                 <StatusBadge status={status} locale={locale} />
+                <ChevronRight className="h-4 w-4 text-neutral-600 group-hover:text-neutral-400 transition hidden sm:block" />
               </Link>
             ))}
           </div>
@@ -83,15 +113,17 @@ export default async function DashboardPage() {
               <Link
                 key={member.id}
                 href={`/admin/members/${member.id}`}
-                className="flex items-center justify-between rounded-lg border border-neutral-800 bg-neutral-900 px-4 py-3 hover:border-neutral-700 transition"
+                className="group flex items-center gap-3 rounded-xl border border-neutral-800 bg-neutral-900/60 px-4 py-3 hover:border-neutral-700 hover:bg-neutral-900 transition"
               >
-                <div>
-                  <div className="font-medium">{member.fullName}</div>
+                <Avatar name={member.fullName} />
+                <div className="flex-1 min-w-0">
+                  <div className="font-medium truncate">{member.fullName}</div>
                   <div className="text-xs text-neutral-500">
                     {t(locale, "dueLabel", { date: dueDate.toLocaleDateString() })} &middot; {member.phone}
                   </div>
                 </div>
                 <StatusBadge status={status} locale={locale} />
+                <ChevronRight className="h-4 w-4 text-neutral-600 group-hover:text-neutral-400 transition hidden sm:block" />
               </Link>
             ))}
           </div>

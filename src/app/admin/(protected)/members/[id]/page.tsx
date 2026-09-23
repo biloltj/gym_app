@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { CreditCard, History, UserPen } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getMemberPaymentStatus } from "@/lib/payment-status";
 import { updateMemberAction } from "@/app/actions/members";
@@ -7,6 +8,7 @@ import AddPaymentForm from "@/components/AddPaymentForm";
 import DeleteMemberButton from "@/components/DeleteMemberButton";
 import DeletePaymentButton from "@/components/DeletePaymentButton";
 import StatusBadge from "@/components/StatusBadge";
+import Avatar from "@/components/Avatar";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { t } from "@/lib/i18n/dictionaries";
 
@@ -31,29 +33,36 @@ export default async function MemberDetailPage({
   );
 
   return (
-    <div className="space-y-8">
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <h1 className="text-lg font-semibold">{member.fullName}</h1>
-          <div className="mt-2 flex items-center gap-2">
-            <StatusBadge status={status} locale={locale} />
-            <span className="text-xs text-neutral-500">
-              {status === "overdue"
-                ? t(locale, "monthsOwedShort", { count: monthsOwed })
-                : t(locale, "nextDueLabel", { date: dueDate.toLocaleDateString() })}
-            </span>
+    <div className="space-y-6">
+      <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-5 flex items-start justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <Avatar name={member.fullName} />
+          <div>
+            <h1 className="text-lg font-semibold">{member.fullName}</h1>
+            <div className="mt-1 flex items-center gap-2">
+              <StatusBadge status={status} locale={locale} />
+              <span className="text-xs text-neutral-500">
+                {status === "overdue"
+                  ? t(locale, "monthsOwedShort", { count: monthsOwed })
+                  : t(locale, "nextDueLabel", { date: dueDate.toLocaleDateString() })}
+              </span>
+            </div>
           </div>
         </div>
         <DeleteMemberButton id={member.id} locale={locale} />
       </div>
 
-      <section className="space-y-3">
-        <h2 className="text-sm font-medium text-neutral-300">{t(locale, "recordPaymentTitle")}</h2>
+      <section className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-5 space-y-4">
+        <h2 className="flex items-center gap-2 text-sm font-medium text-neutral-300">
+          <CreditCard className="h-4 w-4 text-emerald-400" />
+          {t(locale, "recordPaymentTitle")}
+        </h2>
         <AddPaymentForm memberId={member.id} defaultAmount={member.monthlyFee} locale={locale} />
       </section>
 
-      <section className="space-y-3">
-        <h2 className="text-sm font-medium text-neutral-300">
+      <section className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-5 space-y-4">
+        <h2 className="flex items-center gap-2 text-sm font-medium text-neutral-300">
+          <History className="h-4 w-4 text-neutral-500" />
           {t(locale, "paymentHistoryTitle", { count: member.payments.length })}
         </h2>
         {member.payments.length === 0 ? (
@@ -63,7 +72,7 @@ export default async function MemberDetailPage({
             {member.payments.map((payment) => (
               <div
                 key={payment.id}
-                className="flex items-center justify-between rounded-lg border border-neutral-800 bg-neutral-900 px-4 py-3"
+                className="flex items-center justify-between rounded-lg border border-neutral-800 bg-neutral-900/60 px-4 py-3"
               >
                 <div>
                   <div className="font-medium">{payment.forMonth}</div>
@@ -79,8 +88,11 @@ export default async function MemberDetailPage({
         )}
       </section>
 
-      <section className="space-y-3">
-        <h2 className="text-sm font-medium text-neutral-300">{t(locale, "editMemberTitle")}</h2>
+      <section className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-5 space-y-4">
+        <h2 className="flex items-center gap-2 text-sm font-medium text-neutral-300">
+          <UserPen className="h-4 w-4 text-indigo-400" />
+          {t(locale, "editMemberTitle")}
+        </h2>
         <MemberForm
           action={updateMemberAction.bind(null, member.id)}
           submitLabel={t(locale, "saveChangesBtn")}
