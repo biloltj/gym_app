@@ -38,3 +38,41 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #3f3f46;
 }
+
+@keyframes anim-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(7px); }
+}
+@keyframes anim-press {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.12, 0.86); }
+}
+@keyframes anim-curl {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-28deg); }
+}
+@keyframes anim-pulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(255,255,255,0)); }
+  50% { transform: scale(1.1); filter: drop-shadow(0 0 6px rgba(255,255,255,0.25)); }
+}
+@keyframes anim-swing {
+  0%, 100% { transform: rotate(-16deg); }
+  50% { transform: rotate(16deg); }
+}
+@keyframes anim-shimmer {
+  0%, 100% { transform: translateX(-5px) rotate(-6deg); }
+  50% { transform: translateX(5px) rotate(6deg); }
+}
+
+.anim-bounce { animation: anim-bounce 1.4s ease-in-out infinite; }
+.anim-press { animation: anim-press 1.3s ease-in-out infinite; }
+.anim-curl { animation: anim-curl 1.6s ease-in-out infinite; transform-origin: 50% 85%; }
+.anim-pulse { animation: anim-pulse 1.8s ease-in-out infinite; }
+.anim-swing { animation: anim-swing 1.5s ease-in-out infinite; transform-origin: 50% 100%; }
+.anim-shimmer { animation: anim-shimmer 1s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-bounce, .anim-press, .anim-curl, .anim-pulse, .anim-swing, .anim-shimmer {
+    animation: none;
+  }
+}
