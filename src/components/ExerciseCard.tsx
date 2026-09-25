@@ -5,6 +5,7 @@ import {
   Zap,
   Target,
   HeartPulse,
+  Star,
   type LucideIcon,
 } from "lucide-react";
 import type { Category, Difficulty, Exercise } from "@/lib/exercises";
@@ -41,17 +42,34 @@ const DIFFICULTY_STYLE: Record<Difficulty, string> = {
   advanced: "text-red-400 border-red-900/40",
 };
 
-export default function ExerciseCard({ exercise, locale }: { exercise: Exercise; locale: Locale }) {
+export default function ExerciseCard({
+  exercise,
+  locale,
+  favorite,
+  onToggleFavorite,
+}: {
+  exercise: Exercise;
+  locale: Locale;
+  favorite: boolean;
+  onToggleFavorite: (id: string) => void;
+}) {
   const Icon = CATEGORY_ICON[exercise.category];
 
   return (
-    <div className="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-4 flex gap-3 hover:border-neutral-700 transition">
+    <div className="relative rounded-2xl border border-neutral-800 bg-neutral-900/60 p-4 flex gap-3 hover:border-neutral-700 transition">
+      <button
+        onClick={() => onToggleFavorite(exercise.id)}
+        aria-label={t(locale, "favoritesOnlyLabel")}
+        className="absolute top-3 right-3 text-neutral-600 hover:text-amber-400 transition"
+      >
+        <Star className={`h-4 w-4 ${favorite ? "fill-amber-400 text-amber-400" : ""}`} />
+      </button>
       <div
         className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${CATEGORY_ACCENT[exercise.category]}`}
       >
         <Icon className={`h-6 w-6 anim-${exercise.animation}`} strokeWidth={2} />
       </div>
-      <div className="min-w-0">
+      <div className="min-w-0 pr-5">
         <div className="flex items-center gap-2 flex-wrap">
           <h3 className="font-medium">{exercise.name[locale]}</h3>
           <span

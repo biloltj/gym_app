@@ -5,6 +5,7 @@ import { t } from "@/lib/i18n/dictionaries";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ExerciseLibrary from "@/components/ExerciseLibrary";
 import WorkoutTimer from "@/components/WorkoutTimer";
+import BmiCalculator from "@/components/BmiCalculator";
 
 export default async function GuestHomePage() {
   const locale = await getLocale();
@@ -38,10 +39,16 @@ export default async function GuestHomePage() {
           <p className="text-neutral-400 mt-2">{t(locale, "guestHeroSubtitle")}</p>
         </section>
 
-        <section className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-5">
-          <h2 className="text-sm font-medium text-neutral-300 mb-4">{t(locale, "timerTitle")}</h2>
-          <WorkoutTimer locale={locale} />
-        </section>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <section className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-5">
+            <h2 className="text-sm font-medium text-neutral-300 mb-4">{t(locale, "timerTitle")}</h2>
+            <WorkoutTimer locale={locale} />
+          </section>
+          <section className="rounded-2xl border border-neutral-800 bg-neutral-900/40 p-5">
+            <h2 className="text-sm font-medium text-neutral-300 mb-4">{t(locale, "bmiTitle")}</h2>
+            <BmiCalculator locale={locale} />
+          </section>
+        </div>
 
         <section className="space-y-4">
           <h2 className="text-lg font-semibold">{t(locale, "guestExercisesTitle")}</h2>

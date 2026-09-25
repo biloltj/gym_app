@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getMemberPaymentStatus } from "@/lib/payment-status";
 import StatusBadge from "@/components/StatusBadge";
 import Avatar from "@/components/Avatar";
+import ImportMembersForm from "@/components/ImportMembersForm";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { t } from "@/lib/i18n/dictionaries";
 
@@ -25,7 +26,8 @@ export default async function MembersPage({
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-3">
         <h1 className="text-lg font-semibold">{t(locale, "pageTitleMembers", { count: members.length })}</h1>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap justify-end">
+          <ImportMembersForm locale={locale} />
           <a
             href="/admin/members/export"
             className="flex items-center gap-1.5 rounded-lg border border-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-700 text-sm font-medium px-3 py-2 transition"
