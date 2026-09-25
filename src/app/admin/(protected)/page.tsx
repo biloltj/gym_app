@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { Users, CheckCircle2, Clock, AlertTriangle, ChevronRight } from "lucide-react";
+import { Users, CheckCircle2, Clock, AlertTriangle, ChevronRight, PartyPopper, CalendarCheck } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getMemberPaymentStatus, type PaymentStatus } from "@/lib/payment-status";
 import StatusBadge from "@/components/StatusBadge";
 import Avatar from "@/components/Avatar";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import EmptyState from "@/components/EmptyState";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { t } from "@/lib/i18n/dictionaries";
 
@@ -79,7 +80,7 @@ export default async function DashboardPage() {
           {t(locale, "sectionOverdue", { count: overdue.length })}
         </h2>
         {overdue.length === 0 ? (
-          <p className="text-sm text-neutral-500">{t(locale, "noOverdue")}</p>
+          <EmptyState icon={PartyPopper} message={t(locale, "noOverdue")} />
         ) : (
           <div className="space-y-2">
             {overdue.map(({ member, status, monthsOwed }) => (
@@ -118,7 +119,7 @@ export default async function DashboardPage() {
           {t(locale, "sectionDueSoon", { count: dueSoon.length })}
         </h2>
         {dueSoon.length === 0 ? (
-          <p className="text-sm text-neutral-500">{t(locale, "noDueSoon")}</p>
+          <EmptyState icon={CalendarCheck} message={t(locale, "noDueSoon")} />
         ) : (
           <div className="space-y-2">
             {dueSoon.map(({ member, status, dueDate }) => (

@@ -53,7 +53,7 @@ export default function LoginForm({ locale }: { locale: Locale }) {
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 text-white font-medium py-2.5 transition shadow-lg shadow-indigo-950/40"
+        className="w-full rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 text-white font-medium py-2.5 transition active:scale-[0.97] shadow-lg shadow-indigo-950/40"
       >
         {pending ? t(locale, "signingIn") : t(locale, "signIn")}
       </button>

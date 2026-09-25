@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import type { MemberFormState } from "@/app/actions/members";
 import { t } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locales";
+import SuccessToast from "@/components/SuccessToast";
 
 type Action = (
   prevState: MemberFormState,
@@ -88,10 +89,11 @@ export default function MemberForm({ action, submitLabel, locale, defaultValues 
       <button
         type="submit"
         disabled={pending}
-        className="w-full sm:w-auto rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 text-white font-medium px-5 py-2.5 transition"
+        className="w-full sm:w-auto rounded-lg bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 text-white font-medium px-5 py-2.5 transition active:scale-[0.97]"
       >
         {pending ? t(locale, "saving") : submitLabel}
       </button>
+      <SuccessToast pending={pending} error={state?.error} message={t(locale, "savedToast")} />
     </form>
   );
 }

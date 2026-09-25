@@ -127,6 +127,8 @@ const en = {
   chartTitleRevenue: "Revenue — last 6 months",
   legendCollected: "Collected",
   legendExpected: "Expected",
+  savedToast: "Saved",
+  paymentRecordedToast: "Payment recorded",
 };
 
 const ru: typeof en = {
@@ -256,6 +258,8 @@ const ru: typeof en = {
   chartTitleRevenue: "Доход — последние 6 месяцев",
   legendCollected: "Собрано",
   legendExpected: "Ожидается",
+  savedToast: "Сохранено",
+  paymentRecordedToast: "Платёж записан",
 };
 
 const tg: typeof en = {
@@ -385,6 +389,8 @@ const tg: typeof en = {
   chartTitleRevenue: "Даромад — 6 моҳи охир",
   legendCollected: "Ситонидашуд",
   legendExpected: "Интизоршуда",
+  savedToast: "Захира шуд",
+  paymentRecordedToast: "Пардохт сабт шуд",
 };
 
 export const dictionaries = { en, ru, tg } satisfies Record<Locale, typeof en>;

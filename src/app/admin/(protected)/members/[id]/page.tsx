@@ -10,6 +10,7 @@ import DeletePaymentButton from "@/components/DeletePaymentButton";
 import StatusBadge from "@/components/StatusBadge";
 import Avatar from "@/components/Avatar";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import EmptyState from "@/components/EmptyState";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { t } from "@/lib/i18n/dictionaries";
 
@@ -89,7 +90,7 @@ export default async function MemberDetailPage({
           {t(locale, "paymentHistoryTitle", { count: member.payments.length })}
         </h2>
         {member.payments.length === 0 ? (
-          <p className="text-sm text-neutral-500">{t(locale, "noPayments")}</p>
+          <EmptyState icon={CreditCard} message={t(locale, "noPayments")} />
         ) : (
           <div className="space-y-2">
             {member.payments.map((payment) => (

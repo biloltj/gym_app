@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { Search, Plus, ChevronRight, Download } from "lucide-react";
+import { Search, Plus, ChevronRight, Download, UsersRound } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { getMemberPaymentStatus } from "@/lib/payment-status";
 import StatusBadge from "@/components/StatusBadge";
 import Avatar from "@/components/Avatar";
 import ImportMembersForm from "@/components/ImportMembersForm";
+import EmptyState from "@/components/EmptyState";
 import { getLocale } from "@/lib/i18n/get-locale";
 import { t } from "@/lib/i18n/dictionaries";
 
@@ -63,7 +64,7 @@ export default async function MembersPage({
       </form>
 
       {members.length === 0 ? (
-        <p className="text-sm text-neutral-500">{t(locale, "noMembersFound")}</p>
+        <EmptyState icon={UsersRound} message={t(locale, "noMembersFound")} />
       ) : (
         <div className="space-y-2">
           {members.map((member) => {

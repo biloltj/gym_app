@@ -201,7 +201,7 @@ export default function WorkoutTimer({ locale }: { locale: Locale }) {
         {running ? (
           <button
             onClick={pause}
-            className="flex-1 flex items-center justify-center gap-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-medium py-2.5 transition"
+            className="flex-1 flex items-center justify-center gap-2 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-medium py-2.5 transition active:scale-[0.97]"
           >
             <Pause className="h-4 w-4" />
             {t(locale, "timerPause")}
@@ -209,7 +209,7 @@ export default function WorkoutTimer({ locale }: { locale: Locale }) {
         ) : (
           <button
             onClick={start}
-            className="flex-1 flex items-center justify-center gap-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-2.5 transition"
+            className="flex-1 flex items-center justify-center gap-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-2.5 transition active:scale-[0.97]"
           >
             <Play className="h-4 w-4" />
             {t(locale, "timerStart")}
@@ -217,7 +217,7 @@ export default function WorkoutTimer({ locale }: { locale: Locale }) {
         )}
         <button
           onClick={reset}
-          className="flex items-center justify-center gap-2 rounded-lg border border-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-700 px-4 py-2.5 transition"
+          className="flex items-center justify-center gap-2 rounded-lg border border-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-700 px-4 py-2.5 transition active:scale-[0.97]"
         >
           <RotateCcw className="h-4 w-4" />
           {t(locale, "timerReset")}

@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Search, Star } from "lucide-react";
+import { Search, Star, SearchX } from "lucide-react";
 import ExerciseCard from "@/components/ExerciseCard";
+import EmptyState from "@/components/EmptyState";
 import { EXERCISES, getCategories, type Category } from "@/lib/exercises";
 import { t, type DictionaryKey } from "@/lib/i18n/dictionaries";
 import type { Locale } from "@/lib/i18n/locales";
@@ -119,7 +120,7 @@ export default function ExerciseLibrary({ locale }: { locale: Locale }) {
       </div>
 
       {visible.length === 0 ? (
-        <p className="text-sm text-neutral-500">{t(locale, "noExercisesFound")}</p>
+        <EmptyState icon={SearchX} message={t(locale, "noExercisesFound")} />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {visible.map((exercise) => (
